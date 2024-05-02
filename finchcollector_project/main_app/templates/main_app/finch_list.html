@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Finches</title>
+</head>
+<body>
+    <h1>All Finches</h1>
+    <ul>
+    {% for finch in finches %}
+        <li>
+            <strong>Name:</strong> {{ finch.name }}<br>
+            <strong>Scientific Name:</strong> {{ finch.scientific_name }}<br>
+            <strong>Origin:</strong> {{ finch.origin }}<br>
+            <strong>Colors:</strong> {{ finch.colors }}
+        </li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
