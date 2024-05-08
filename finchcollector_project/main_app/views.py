@@ -7,6 +7,9 @@ finches = [
     {'name': 'Society Finch', 'scientific_name': 'Lonchura domestica', 'origin': 'China', 'colors': 'White, Fawn, Grey'}
 ]
 
+def homepage(request):
+    return render(request, 'main_app/homepage.html')
+
 def about(request):
     return render(request, 'main_app/about.html')
 
