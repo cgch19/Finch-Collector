@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Finch</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-md mx-auto mt-8">
+        <h1 class="text-3xl font-bold text-center mb-4">Edit Finch</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700 font-bold mb-2">Name:</label>
+                <input type="text" id="name" name="name" value="{{ finch.name }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+                <label for="scientific_name" class="block text-gray-700 font-bold mb-2">Scientific Name:</label>
+                <input type="text" id="scientific_name" name="scientific_name" value="{{ finch.scientific_name }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+                <label for="origin" class="block text-gray-700 font-bold mb-2">Origin:</label>
+                <input type="text" id="origin" name="origin" value="{{ finch.origin }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+                <label for="colors" class="block text-gray-700 font-bold mb-2">Colors:</label>
+                <input type="text" id="colors" name="colors" value="{{ finch.colors }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="text-center">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

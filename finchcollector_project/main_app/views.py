@@ -1,11 +1,7 @@
 from django.shortcuts import render
-
-# Create your views here.
-finches = [
-    {'name': 'Zebra Finch', 'scientific_name': 'Taeniopygia guttata', 'origin': 'Australia', 'colors': 'Grey, White, Black'},
-    {'name': 'Gouldian Finch', 'scientific_name': 'Erythrura gouldiae', 'origin': 'Australia', 'colors': 'Red, Black, Green, Yellow'},
-    {'name': 'Society Finch', 'scientific_name': 'Lonchura domestica', 'origin': 'China', 'colors': 'White, Fawn, Grey'}
-]
+from django.views.generic import CreateView, UpdateView, DeleteView
+from .models import Finch
+from django.urls import reverse_lazy
 
 def homepage(request):
     return render(request, 'main_app/homepage.html')
@@ -14,4 +10,22 @@ def about(request):
     return render(request, 'main_app/about.html')
 
 def finch_list(request):
+    finches = Finch.objects.all()
     return render(request, 'main_app/finch_list.html', {'finches': finches})
+
+class FinchCreateView(CreateView):
+    model = Finch
+    fields = ['name', 'scientific_name', 'origin', 'colors']
+    success_url = reverse_lazy('finch_list')
+    template_name = 'main_app/finch_form.html'
+
+class FinchUpdateView(UpdateView):
+    model = Finch
+    fields = ['name', 'scientific_name', 'origin', 'colors']
+    template_name = 'main_app/finch_edit.html'  
+    success_url = reverse_lazy('finch_list') 
+
+class FinchDeleteView(DeleteView):
+    model = Finch
+    success_url = reverse_lazy('finch_list')
+    template_name = 'main_app/finch_confirm_delete.html'

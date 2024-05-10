@@ -7,6 +7,7 @@
 </head>
 <body class="bg-gray-100">
     <h1 class="text-3xl font-bold text-center mt-8">All Finches</h1>
+    <a href="{% url 'finch_add' %}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded absolute top-0 right-0 m-4">Add Finch</a>
     <ul class="max-w-md mx-auto mt-8">
     {% for finch in finches %}
         <li class="bg-white shadow-md rounded-md p-4 mb-4">
@@ -14,8 +15,16 @@
             <strong class="block mb-2">Scientific Name:</strong> {{ finch.scientific_name }}<br>
             <strong class="block mb-2">Origin:</strong> {{ finch.origin }}<br>
             <strong class="block">Colors:</strong> {{ finch.colors }}
+            <div class="mt-4">
+                <a href="{% url 'finch_edit' pk=finch.pk %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">Edit</a>
+                <form action="{% url 'finch_delete' pk=finch.pk %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
+                </form>
+            </div>
         </li>
     {% endfor %}
     </ul>
 </body>
 </html>
+
