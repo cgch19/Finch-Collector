@@ -11,7 +11,8 @@
     <ul class="max-w-md mx-auto mt-8">
     {% for finch in finches %}
         <li class="bg-white shadow-md rounded-md p-4 mb-4">
-            <strong class="block mb-2">Name:</strong> {{ finch.name }}<br>
+            <strong class="block mb-2">Name:</strong> 
+            <a href="{% url 'finch_detail' finch_id=finch.id %}" class="text-blue-500 hover:underline">{{ finch.name }}</a><br>
             <strong class="block mb-2">Scientific Name:</strong> {{ finch.scientific_name }}<br>
             <strong class="block mb-2">Origin:</strong> {{ finch.origin }}<br>
             <strong class="block">Colors:</strong> {{ finch.colors }}
@@ -27,4 +28,3 @@
     </ul>
 </body>
 </html>
-
