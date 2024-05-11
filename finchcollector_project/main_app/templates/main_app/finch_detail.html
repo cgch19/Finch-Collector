@@ -40,6 +40,31 @@
             </tbody>
         </table>
     </div>
+    <!-- Finch's Toys Section -->
+    <div class="container mx-auto px-4 py-8">
+        <h3>{{ finch.name }}'s Toys</h3>
+        {% if finch.toys.count %}
+            {% for toy in finch.toys.all %}
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">
+                            A <span style="color: {{ toy.color }}">{{ toy.color }}</span> {{ toy.name }}
+                        </span>
+                    </div>
+                    <div class="card-action">
+                        <form action="{% url 'assoc_delete' finch.id toy.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="btn red">Remove</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h5>No Toys 😿</h5>
+        {% endif %}
+        
+
+    </div>
 </div>
 <hr>
 {% endblock %}

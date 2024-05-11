@@ -1,9 +1,47 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import CreateView, UpdateView, DeleteView, ListView, DetailView
 from django.urls import reverse_lazy
-from .models import Finch
+from .models import Finch, Toy
 from .forms import FeedingForm
 
+# Add ToyList and ToyCreate views
+class ToyList(ListView):
+    model = Toy
+    template_name = 'main_app/toy_list.html'
+    context_object_name = 'toys'
+
+class ToyCreate(CreateView):
+    model = Toy
+    fields = ['name', 'color']
+    template_name = 'main_app/toy_create.html'
+    success_url = '/toys/'
+
+class ToyDetailView(DetailView):
+    model = Toy
+    template_name = 'main_app/toy_detail.html'  # Replace with the actual template name for toy details
+    context_object_name = 'toy'
+
+# Add ToyUpdate view
+class ToyUpdate(UpdateView):
+    model = Toy
+    fields = ['name', 'color']
+    template_name = 'main_app/toy_form.html'  # Reuse the same form template
+    success_url = reverse_lazy('toys_index')  # Adjust the success URL as needed
+
+# Add ToyDelete view
+class ToyDelete(DeleteView):
+    model = Toy
+    template_name = 'main_app/toy_confirm_delete.html'  # Specify the delete confirmation template
+    success_url = reverse_lazy('toys_index')  # Adjust the success URL as needed
+
+# Toy list view
+def toy_list(request, finch_id=None):
+    toys = Toy.objects.all()  # By default, fetch all toys
+    if finch_id:
+        toys = toys.filter(finch_id=finch_id)  # Filter toys by the specified finch ID
+    return render(request, 'main_app/toy_list.html', {'toys': toys})
+
+# Below are the existing views you provided
 def homepage(request):
     return render(request, 'main_app/homepage.html')
 
@@ -34,12 +72,13 @@ class FinchDeleteView(DeleteView):
 def finch_detail(request, finch_id):
     finch = get_object_or_404(Finch, pk=finch_id)
     feeding_form = FeedingForm()
-    return render(request, 'main_app/finch_detail.html', {'finch': finch, 'feeding_form': feeding_form,})
+    toys = finch.toys.all()
+    return render(request, 'main_app/finch_detail.html', {'finch': finch, 'feeding_form': feeding_form,'toys': toys})
 
 def add_feeding(request, pk):
-  form = FeedingForm(request.POST)
-  if form.is_valid():
-    new_feeding = form.save(commit=False)
-    new_feeding.finch_id = pk
-    new_feeding.save()
-  return redirect('finch_detail', finch_id=pk)
+    form = FeedingForm(request.POST)
+    if form.is_valid():
+        new_feeding = form.save(commit=False)
+        new_feeding.finch_id = pk
+        new_feeding.save()
+    return redirect('finch_detail', finch_id=pk)

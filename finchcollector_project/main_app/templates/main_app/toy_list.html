@@ -1,0 +1,15 @@
+{% block content %}
+<h1>Toy List</h1>
+<div style="display: flex; flex-wrap: wrap; gap: 20px;">
+  {% for toy in toys %}
+    <a href="{% url 'toy_detail' toy.id %}" style="text-decoration: none; color: inherit;">
+      <div style="width: 200px; background-color: whitesmoke; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease;">
+        <div style="padding: 16px;">
+          <span style="font-size: 18px; font-weight: bold;">{{ toy.name }}</span>
+          <p>Color: {{ toy.color }}</p>
+        </div>
+      </div>
+    </a>
+  {% endfor %}
+</div>
+{% endblock %}

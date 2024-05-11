@@ -10,10 +10,12 @@
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-3xl font-bold mb-4 text-center">Welcome to the Finch Collector!</h1>
         <p class="text-lg mb-4 text-center">This is the homepage of our Finch Collector website.</p>
-        <div class="flex justify-center space-x-4">
+        <div class="flex justify-center space-x-4 mb-8">
             <a href="{% url 'about' %}" class="text-blue-500 hover:underline">About</a>
             <span class="text-gray-500">|</span>
             <a href="{% url 'finch_list' %}" class="text-blue-500 hover:underline">Finch List</a>
+            <span class="text-gray-500">|</span>
+            <a href="{% url 'toys_index' %}" class="text-blue-500 hover:underline">Toy List</a> <!-- Add this line -->
         </div>
     </div>
 </body>

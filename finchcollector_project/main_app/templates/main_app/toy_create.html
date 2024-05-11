@@ -1,0 +1,19 @@
+{% block content %}
+  <div style="margin-top: 20px; text-align: center;">
+    {% if object %}
+      <h1 style="color: teal;">Edit <span style="color: teal;">{{object.name}}</span></h1>
+    {% else %}
+      <h1 style="color: teal;">Add Toy</h1>
+    {% endif %}
+    <!-- Leaving the action empty makes the form post to the same url used to display it -->
+    <form action="" method="post" style="display: inline-block;">
+      <!-- Django requires the following for security purposes -->
+      {% csrf_token %}
+      <table style="width: 100%; margin: auto;">
+        <!-- Render the inputs inside of <tr>s & <td>s -->
+        {{ form.as_table }}
+      </table>
+      <input type="submit" value="Submit!" style="background-color: teal; color: white; padding: 10px; border: none; cursor: pointer;">
+    </form>
+  </div>
+{% endblock %}
