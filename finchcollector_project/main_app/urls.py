@@ -9,5 +9,5 @@ urlpatterns = [
     path('finch/<int:pk>/edit/', views.FinchUpdateView.as_view(), name='finch_edit'),
     path('finch/<int:pk>/delete/', views.FinchDeleteView.as_view(), name='finch_delete'),
     path('finch/<int:finch_id>/', views.finch_detail, name='finch_detail'),
-    path('finch/<int:finch_id>/add_feeding/', views.add_feeding, name='add_feeding'),
+    path('finch/<int:pk>/add_feeding/', views.add_feeding, name='add_feeding'),
 ]

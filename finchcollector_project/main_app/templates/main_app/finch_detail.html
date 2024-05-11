@@ -12,27 +12,13 @@
         </div>
         <div style="background-color: #ffffff; border-radius: 0.5rem; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); padding: 1.5rem;">
             <div style="padding: 1.5rem;">
-                <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem;">Add Feeding</h2>
-                <form action="{% url 'add_feeding' finch.id %}" method="POST">
+                <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; text-align: center; ">Add Feeding</h2>
+                <form  style="text-align: center;" action="{% url 'add_feeding' finch.id %}" method="POST">
                     {% csrf_token %}
-                    <div style="margin-bottom: 1rem;">
-                        <label for="date" style="font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; display: block;">Date:</label>
-                        <input type="date" id="date" name="date" style="width: 100%; border: 1px solid #cbd5e0; border-radius: 0.375rem; padding: 0.5rem; outline: none; transition: border-color 0.15s ease-in-out;">
-                    </div>
-                    <div style="margin-bottom: 1rem;">
-                        <label for="meal" style="font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; display: block;">Meal:</label>
-                        <input type="text" id="meal" name="meal" style="width: 100%; border: 1px solid #cbd5e0; border-radius: 0.375rem; padding: 0.5rem; outline: none; transition: border-color 0.15s ease-in-out;">
-                    </div>
-                    <div style="margin-bottom: 1rem;">
-                        <label for="food_type" style="font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; display: block;">Food Type:</label>
-                        <input type="text" id="food_type" name="food_type" style="width: 100%; border: 1px solid #cbd5e0; border-radius: 0.375rem; padding: 0.5rem; outline: none; transition: border-color 0.15s ease-in-out;">
-                    </div>
-                    <div style="margin-bottom: 1rem;">
-                        <label for="food_amount" style="font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; display: block;">Food Amount:</label>
-                        <input type="text" id="food_amount" name="food_amount" style="width: 100%; border: 1px solid #cbd5e0; border-radius: 0.375rem; padding: 0.5rem; outline: none; transition: border-color 0.15s ease-in-out;">
-                    </div>
-                    <button type="submit" style="background-color: #3b82f6; color: #ffffff; font-weight: 600; padding: 0.75rem 1.5rem; border-radius: 0.375rem; cursor: pointer; transition: background-color 0.15s ease-in-out;">Add Feeding</button>
-                </form>
+                    <!-- Render the inputs -->
+                    {{ feeding_form.as_p }}
+                    <input type="submit" class="btn" value="Add Feeding">
+                  </form> 
             </div>
         </div>
     </div>
@@ -48,7 +34,7 @@
                 {% for feeding in finch.feeding_set.all %}
                 <tr>
                     <td style="padding: 0.5rem 1rem; border: 1px solid #e5e7eb;">{{ feeding.date }}</td>
-                    <td style="padding: 0.5rem 1rem; border: 1px solid #e5e7eb;">{{ feeding.meal }}</td>
+                    <td style="padding: 0.5rem 1rem; border: 1px solid #e5e7eb;">{{ feeding.get_meal_display }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -57,4 +43,3 @@
 </div>
 <hr>
 {% endblock %}
-

@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .models import Finch, Feeding
+from .models import Finch
+from .forms import FeedingForm
 
 def homepage(request):
     return render(request, 'main_app/homepage.html')
@@ -32,15 +33,13 @@ class FinchDeleteView(DeleteView):
 
 def finch_detail(request, finch_id):
     finch = get_object_or_404(Finch, pk=finch_id)
-    feedings = Feeding.objects.filter(finch=finch)
-    return render(request, 'main_app/finch_detail.html', {'finch': finch, 'feedings': feedings})
+    feeding_form = FeedingForm()
+    return render(request, 'main_app/finch_detail.html', {'finch': finch, 'feeding_form': feeding_form,})
 
-def add_feeding(request, finch_id):
-    if request.method == 'POST':
-        finch = get_object_or_404(Finch, pk=finch_id)
-
-        date = request.POST.get('date')
-        food_type = request.POST.get('food_type')
-        food_amount = request.POST.get('food_amount')
-        feeding = Feeding.objects.create(finch=finch, date=date, food_type=food_type, food_amount=food_amount)
-        return redirect('finch_detail', finch_id=finch_id)
+def add_feeding(request, pk):
+  form = FeedingForm(request.POST)
+  if form.is_valid():
+    new_feeding = form.save(commit=False)
+    new_feeding.finch_id = pk
+    new_feeding.save()
+  return redirect('finch_detail', finch_id=pk)
