@@ -6,9 +6,10 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
+    <a href="{% url 'homepage' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded absolute top-0 left-0 m-4">Home</a> <!-- Added this line -->
     <h1 class="text-3xl font-bold text-center mt-8">All Finches</h1>
     <a href="{% url 'finch_add' %}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded absolute top-0 right-0 m-4">Add Finch</a>
-    <a href="{% url 'toys_create' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 ml-4">Add Toy</a> <!-- Add this line -->
+    <a href="{% url 'toys_create' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded absolute top-0 right-0 m-4 mt-16">Add Toy</a>
     <ul class="max-w-md mx-auto mt-8">
     {% for finch in finches %}
         <li class="bg-white shadow-md rounded-md p-4 mb-4">
