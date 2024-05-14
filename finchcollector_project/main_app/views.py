@@ -72,8 +72,13 @@ class FinchDeleteView(DeleteView):
 def finch_detail(request, finch_id):
     finch = get_object_or_404(Finch, pk=finch_id)
     feeding_form = FeedingForm()
-    toys = finch.toys.all()
-    return render(request, 'main_app/finch_detail.html', {'finch': finch, 'feeding_form': feeding_form,'toys': toys})
+    toys = Toy
+    # Get the toys the cat doesn't have...
+    # First, create a list of the toy ids that the cat DOES have
+    id_list = finch.toys.all().values_list('id')
+    # Now we can query for toys whose ids are not in the list using exclude
+    toys_finch_doesnt_have = Toy.objects.exclude(id__in=id_list)
+    return render(request, 'main_app/finch_detail.html', {'finch': finch, 'feeding_form': feeding_form,'toys': toys_finch_doesnt_have})
 
 def add_feeding(request, pk):
     form = FeedingForm(request.POST)
@@ -82,3 +87,7 @@ def add_feeding(request, pk):
         new_feeding.finch_id = pk
         new_feeding.save()
     return redirect('finch_detail', finch_id=pk)
+
+def assoc_toy(request, pk, toy_pk):
+  Finch.objects.get(id=pk).toys.add(toy_pk)
+  return redirect('finch_detail', finch_id=pk)
